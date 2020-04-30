@@ -65,7 +65,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                 height: 5,
               ),
               Divider(
-                color: Color(0xffF8F8F2),
+                color: CONSTS.whiteColor,
               ),
               SizedBox(
                 height: 5,
