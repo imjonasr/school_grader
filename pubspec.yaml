@@ -13,6 +13,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   mobx: ^1.1.1
   flutter_mobx: ^1.1.0
+  flutter_launcher_icons: ^0.7.5
 
 dev_dependencies:
   flutter_test:
@@ -46,3 +47,8 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/favicon.png"
