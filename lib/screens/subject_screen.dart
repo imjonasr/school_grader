@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:my_grades/stores/CONSTS.dart';
+import 'package:my_grades/CONSTS.dart';
 import 'package:my_grades/stores/subject_list_store.dart';
 import 'package:my_grades/widgets/subject_home_widget.dart';
 

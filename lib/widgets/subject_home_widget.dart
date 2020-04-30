@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_grades/stores/CONSTS.dart';
+import 'package:my_grades/CONSTS.dart';
 import 'package:my_grades/stores/subject_store.dart';
 import 'package:my_grades/stores/grade_store.dart';
 

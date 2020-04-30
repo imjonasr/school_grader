@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_grades/stores/CONSTS.dart';
+import 'package:my_grades/CONSTS.dart';
 
 import 'screens/subject_screen.dart';
 
