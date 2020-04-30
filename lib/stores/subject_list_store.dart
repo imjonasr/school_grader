@@ -10,9 +10,12 @@ abstract class _SubjectListBase with Store {
 
   @action
   void addSubject(String name) {
-    subjects.add(SubjectStore(
+    subjects.add(
+      SubjectStore(
         name: name,
         passed: false,
-        grades: GradeStore(trimester1: 0.0, trimester2: 0.0, trimester3: 0.0)));
+        grades: GradeStore(trimester1: 0.0, trimester2: 0.0, trimester3: 0.0),
+      ),
+    );
   }
 }

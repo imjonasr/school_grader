@@ -117,6 +117,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                     autofocus: true,
                     cursorColor: CONSTS.purpleColor,
                     controller: _controller,
+                    maxLength: 13,
                   ),
                   actions: <Widget>[
                     FlatButton(

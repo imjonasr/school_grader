@@ -17,5 +17,8 @@ abstract class _GradeStore with Store {
   _GradeStore({this.trimester1 = 0.0, this.trimester2 = 0.0, this.trimester3 = 0.0});
 
   @computed
-  double get total => trimester1 + trimester2 + trimester3; 
+  double get total => trimester1 + trimester2 + trimester3;
+
+  @computed
+  double get lessToPass => 15 - total;
 }
