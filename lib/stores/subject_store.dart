@@ -1,6 +1,5 @@
 import 'package:mobx/mobx.dart';
 import 'package:my_grades/stores/grade_store.dart';
-import 'package:my_grades/stores/subject_list_store.dart';
 part 'subject_store.g.dart';
 
 class SubjectStore = _SubjectStore with _$SubjectStore;

@@ -53,7 +53,7 @@ class SubjectHomeWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${_grades.trimester1} - ${_grades.trimester2} - ${_grades.trimester3}",
+                  gradesText(),
                   style: TextStyle(
                     color: CONSTS.greyColor,
                     fontSize: 12,
@@ -79,5 +79,14 @@ class SubjectHomeWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String gradesText() {
+    GradeStore _grades = subject.grades;
+    String stringTrimestrer1 = _grades.trimester1 == 0.0 ? "--" : _grades.trimester1.toString();
+    String stringTrimestrer2 = _grades.trimester1 == 0.0 ? "--" : _grades.trimester2.toString();
+    String stringTrimestrer3 = _grades.trimester1 == 0.0 ? "--" : _grades.trimester3.toString();
+
+    return "$stringTrimestrer1 / $stringTrimestrer2 / $stringTrimestrer3";
   }
 }

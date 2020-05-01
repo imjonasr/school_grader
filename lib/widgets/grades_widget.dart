@@ -8,7 +8,7 @@ class GradeWidget extends StatelessWidget {
   final int trimester;
   final bool isTotalWidget;
 
-  TextEditingController _gradeTextController = TextEditingController();
+  final TextEditingController _gradeTextController = TextEditingController();
 
   GradeWidget(
       {@required this.subject, this.trimester, this.isTotalWidget = false});

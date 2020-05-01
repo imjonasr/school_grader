@@ -12,8 +12,6 @@ class GradeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _gradeTextController = TextEditingController();
-
     return Scaffold(
       backgroundColor: CONSTS.backgroundColor,
       body: SafeArea(
