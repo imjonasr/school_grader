@@ -20,5 +20,5 @@ abstract class _GradeStore with Store {
   double get total => trimester1 + trimester2 + trimester3;
 
   @computed
-  double get lessToPass => 15 - total;
+  double get remainToPass => 15 - total;
 }

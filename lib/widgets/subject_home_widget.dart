@@ -65,7 +65,7 @@ class SubjectHomeWidget extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  "${_grades.total}",
+                  "${_grades.total.toStringAsFixed(2)}",
                   style: TextStyle(
                     color: CONSTS.whiteColor,
                     fontSize: 18,

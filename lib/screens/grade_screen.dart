@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_grades/CONSTS.dart';
 import 'package:my_grades/stores/subject_store.dart';
 import 'package:my_grades/widgets/botomNavigationBar_widget.dart';
@@ -11,6 +12,8 @@ class GradeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _gradeTextController = TextEditingController();
+
     return Scaffold(
       backgroundColor: CONSTS.backgroundColor,
       body: SafeArea(
@@ -35,41 +38,40 @@ class GradeScreen extends StatelessWidget {
                       fontSize: 24,
                     ),
                   ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.add,
-                          color: CONSTS.whiteColor,
-                        ),
-                        onPressed: () {
-                          print("Adicionar nota");
-                        },
-                      ),
-                    ),
-                  ),
                 ],
               ),
-              
               Divider(
                 color: CONSTS.whiteColor,
               ),
               SizedBox(
                 height: 5,
               ),
-              GradeWidget(subject: subject,trimester: 1,),
-              GradeWidget(subject: subject,trimester: 2,),
-              GradeWidget(subject: subject,trimester: 3,),
-              GradeWidget(subject: subject, isTotalWidget: true,),
+              GradeWidget(
+                subject: subject,
+                trimester: 1,
+              ),
+              GradeWidget(
+                subject: subject,
+                trimester: 2,
+              ),
+              GradeWidget(
+                subject: subject,
+                trimester: 3,
+              ),
+              GradeWidget(
+                subject: subject,
+                isTotalWidget: true,
+              ),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBarWidget(
-        passed: subject.passed,
-        lessToPass: subject.grades.lessToPass,
-      ),
+      bottomNavigationBar: Observer(builder: (_) {
+        return BottomNavigationBarWidget(
+          passed: subject.passed,
+          remainToPass: subject.grades.remainToPass,
+        );
+      }),
     );
   }
 }

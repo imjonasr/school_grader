@@ -57,6 +57,16 @@ mixin _$SubjectStore on _SubjectStore, Store {
   }
 
   @override
+  void addGrade(int trimestrer, String gradeString) {
+    final _$actionInfo = _$_SubjectStoreActionController.startAction();
+    try {
+      return super.addGrade(trimestrer, gradeString);
+    } finally {
+      _$_SubjectStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string = 'passed: ${passed.toString()},grades: ${grades.toString()}';
     return '{$string}';

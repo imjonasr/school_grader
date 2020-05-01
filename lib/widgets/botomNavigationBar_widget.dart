@@ -4,9 +4,9 @@ import 'package:my_grades/CONSTS.dart';
 class BottomNavigationBarWidget extends StatelessWidget {
 
   final bool passed;
-  final double lessToPass;
+  final double remainToPass;
 
-  BottomNavigationBarWidget({@required this.passed, @required this.lessToPass});
+  BottomNavigationBarWidget({@required this.passed, @required this.remainToPass});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
       color: CONSTS.redColor,
       child: Center(
         child: Text(
-          "Faltam $lessToPass pontos",
+          "Faltam ${remainToPass.toStringAsFixed(2)} pontos",
           style: TextStyle(
             color: CONSTS.whiteColor,
             fontSize: 14,

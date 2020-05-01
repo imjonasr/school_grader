@@ -14,11 +14,12 @@ mixin _$GradeStore on _GradeStore, Store {
   @override
   double get total =>
       (_$totalComputed ??= Computed<double>(() => super.total)).value;
-  Computed<double> _$lessToPassComputed;
+  Computed<double> _$remainToPassComputed;
 
   @override
-  double get lessToPass =>
-      (_$lessToPassComputed ??= Computed<double>(() => super.lessToPass)).value;
+  double get remainToPass =>
+      (_$remainToPassComputed ??= Computed<double>(() => super.remainToPass))
+          .value;
 
   final _$trimester1Atom = Atom(name: '_GradeStore.trimester1');
 
@@ -74,7 +75,7 @@ mixin _$GradeStore on _GradeStore, Store {
   @override
   String toString() {
     final string =
-        'trimester1: ${trimester1.toString()},trimester2: ${trimester2.toString()},trimester3: ${trimester3.toString()},total: ${total.toString()},lessToPass: ${lessToPass.toString()}';
+        'trimester1: ${trimester1.toString()},trimester2: ${trimester2.toString()},trimester3: ${trimester3.toString()},total: ${total.toString()},remainToPass: ${remainToPass.toString()}';
     return '{$string}';
   }
 }
