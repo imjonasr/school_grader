@@ -28,7 +28,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "Grades",
+                "Notas",
                 style: TextStyle(
                   color: Color(0xffF8F8F2),
                   fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: "X",
+                          text: subjectList.subjectsPassed.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -173,6 +173,15 @@ class _SubjectScreenState extends State<SubjectScreen> {
                     ),
                   ),
                   content: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Nome da matéria',
+                      hintStyle: TextStyle(
+                        color: CONSTS.whiteColor,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 14,
+                      ),
+                    ),
+                    style: TextStyle(color: CONSTS.whiteColor),
                     textCapitalization: TextCapitalization.words,
                     autofocus: true,
                     cursorColor: CONSTS.purpleColor,
@@ -181,7 +190,12 @@ class _SubjectScreenState extends State<SubjectScreen> {
                   ),
                   actions: <Widget>[
                     FlatButton(
-                      child: Text("Adicionar"),
+                      child: Text(
+                        "Adicionar",
+                        style: TextStyle(
+                          color: CONSTS.purpleColor,
+                        ),
+                      ),
                       onPressed: () {
                         subjectList.addSubject(_controller.text);
                         _controller.text = "";

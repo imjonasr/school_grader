@@ -35,6 +35,5 @@ abstract class _SubjectListBase with Store {
         subjectsPassed++;
       }
     }
-    print(subjectsPassed);
   }
 }
