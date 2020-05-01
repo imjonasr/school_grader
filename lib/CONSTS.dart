@@ -9,5 +9,6 @@ class CONSTS {
   static Color greenColor = Color(0xff50FA7B);
   static Color greyColor = Color(0xff6272A4);
   static Color purpleColor = Color(0xffbd93f9);
+  static Color cyanColor = Color(0xff8be9fd);
   
 }
