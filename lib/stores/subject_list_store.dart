@@ -30,6 +30,7 @@ abstract class _SubjectListBase with Store {
 
   @action
   void checkSubjectsPassed() {
+    subjectsPassed = 0;
     for(int s = 0; s < subjects.length; s++) {
       if(subjects[s].passed) {
         subjectsPassed++;

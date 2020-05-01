@@ -11,13 +11,14 @@ class SubjectScreen extends StatefulWidget {
 }
 
 class _SubjectScreenState extends State<SubjectScreen> {
-  //List<SubjectStore> subjects = [];
+
   SubjectList subjectList = SubjectList();
   TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var subjects = subjectList.subjects;
+    subjectList.checkSubjectsPassed();
 
     return Scaffold(
       backgroundColor: Color(0xff282A36),
