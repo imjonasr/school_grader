@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_grades/CONSTS.dart';
@@ -86,8 +87,60 @@ class _SubjectScreenState extends State<SubjectScreen> {
                       : ListView.separated(
                           itemCount: subjects.length,
                           itemBuilder: (context, index) {
-                            return SubjectHomeWidget(
-                              subject: subjects[index],
+                            //() =>
+                            return GestureDetector(
+                              onLongPress: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      backgroundColor: CONSTS.foregroundColor,
+                                      title: Text(
+                                        "Excluir matéria",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: CONSTS.whiteColor,
+                                        ),
+                                      ),
+                                      content: Text(
+                                        "Você deseja excluir a matéria \"${subjects[index].name}\"? Tenha em mente que perderá todas as notas descritas.",
+                                        style: TextStyle(
+                                          color: CONSTS.whiteColor,
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        FlatButton(
+                                          child: Text(
+                                            "Cancelar",
+                                            style: TextStyle(
+                                              color: CONSTS.greyColor,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                            subjectList.removeSubject(index);
+                                          },
+                                        ),
+                                        FlatButton(
+                                          child: Text(
+                                            "Excluir",
+                                            style: TextStyle(
+                                              color: CONSTS.redColor,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                            subjectList.removeSubject(index);
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                              child: SubjectHomeWidget(
+                                subject: subjects[index],
+                              ),
                             );
                           },
                           separatorBuilder: (context, index) {
@@ -111,7 +164,14 @@ class _SubjectScreenState extends State<SubjectScreen> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Text("Adicionar matéria"),
+                  backgroundColor: CONSTS.foregroundColor,
+                  title: Text(
+                    "Adicionar matéria",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: CONSTS.whiteColor,
+                    ),
+                  ),
                   content: TextFormField(
                     textCapitalization: TextCapitalization.words,
                     autofocus: true,

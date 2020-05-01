@@ -17,5 +17,24 @@ abstract class _SubjectListBase with Store {
         grades: GradeStore(trimester1: 0.0, trimester2: 0.0, trimester3: 0.0),
       ),
     );
+    checkSubjectsPassed();
+  }
+
+  @action
+  void removeSubject(int index) {
+    subjects.removeAt(index);
+  }
+
+  @observable
+  int subjectsPassed = 0;
+
+  @action
+  void checkSubjectsPassed() {
+    for(int s = 0; s < subjects.length; s++) {
+      if(subjects[s].passed) {
+        subjectsPassed++;
+      }
+    }
+    print(subjectsPassed);
   }
 }
