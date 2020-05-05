@@ -21,4 +21,16 @@ abstract class _GradeStore with Store {
 
   @computed
   double get remainToPass => 15 - total;
+
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic> {
+      "trimester1": trimester1,
+      "trimester2": trimester2,
+      "trimester3": trimester3,
+      "total": total,
+      "remainToPass": remainToPass,
+    };
+
+    return map;
+  }
 }

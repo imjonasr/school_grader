@@ -1,7 +1,8 @@
 import 'package:mobx/mobx.dart';
-import 'package:my_grades/stores/grade_store.dart';
 import 'package:my_grades/stores/subject_store.dart';
+import 'package:my_grades/db/database.dart';
 part 'subject_list_store.g.dart';
+
 
 class SubjectList = _SubjectListBase with _$SubjectList;
 
@@ -14,15 +15,18 @@ abstract class _SubjectListBase with Store {
       SubjectStore(
         name: name,
         passed: false,
-        grades: GradeStore(trimester1: 0.0, trimester2: 0.0, trimester3: 0.0),
+        //grades: GradeStore(trimester1: 0.0, trimester2: 0.0, trimester3: 0.0),
+        trimester1: 0.0,
+        trimester2: 0.0,
+        trimester3: 0.0,
       ),
     );
     checkSubjectsPassed();
   }
 
-  @action
   void removeSubject(int index) {
-    subjects.removeAt(index);
+    SubjectDatabase db;
+    db.deleteSubjectWithId(index);
   }
 
   @observable
@@ -31,8 +35,8 @@ abstract class _SubjectListBase with Store {
   @action
   void checkSubjectsPassed() {
     subjectsPassed = 0;
-    for(int s = 0; s < subjects.length; s++) {
-      if(subjects[s].passed) {
+    for (int s = 0; s < subjects.length; s++) {
+      if (subjects[s].passed) {
         subjectsPassed++;
       }
     }

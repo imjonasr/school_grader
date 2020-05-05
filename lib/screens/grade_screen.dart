@@ -67,7 +67,7 @@ class GradeScreen extends StatelessWidget {
       bottomNavigationBar: Observer(builder: (_) {
         return BottomNavigationBarWidget(
           passed: subject.passed,
-          remainToPass: subject.grades.remainToPass,
+          remainToPass: subject.remainToPass,
         );
       }),
     );

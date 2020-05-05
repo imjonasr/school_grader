@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:my_grades/CONSTS.dart';
 import 'package:my_grades/stores/subject_list_store.dart';
+import 'package:my_grades/stores/subject_store.dart';
 import 'package:my_grades/widgets/subject_home_widget.dart';
+import '../db/database.dart';
 
 class SubjectScreen extends StatefulWidget {
   @override
@@ -11,9 +12,9 @@ class SubjectScreen extends StatefulWidget {
 }
 
 class _SubjectScreenState extends State<SubjectScreen> {
-
   SubjectList subjectList = SubjectList();
   TextEditingController _controller = TextEditingController();
+  SubjectDatabase db;
 
   @override
   Widget build(BuildContext context) {
@@ -72,84 +73,92 @@ class _SubjectScreenState extends State<SubjectScreen> {
               SizedBox(
                 height: 5,
               ),
-              Observer(builder: (_) {
-                return Expanded(
-                  child: subjects.length == 0
-                      ? Center(
-                          child: Text(
-                            "Não tem nenhuma matéria cadastrada!",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Color(0xffF8F8F2),
-                              fontSize: 16,
+              Expanded(
+                child: FutureBuilder(
+                  future: SubjectDatabase.db.getAllSubjects(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.separated(
+                        itemCount: snapshot.data.length,
+                        physics: BouncingScrollPhysics(),
+                        separatorBuilder: (context, index) {
+                          return SizedBox(height: 15);
+                        },
+                        itemBuilder: (context, index) {
+                          SubjectStore item = snapshot.data[index];
+                          return GestureDetector(
+                            onLongPress: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    backgroundColor: CONSTS.foregroundColor,
+                                    title: Text(
+                                      "Excluir matéria",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: CONSTS.whiteColor,
+                                      ),
+                                    ),
+                                    content: Text(
+                                      "Você deseja excluir a matéria \"${item.name}\"? Tenha em mente que perderá todas as notas descritas.",
+                                      style: TextStyle(
+                                        color: CONSTS.whiteColor,
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      FlatButton(
+                                        child: Text(
+                                          "Cancelar",
+                                          style: TextStyle(
+                                            color: CONSTS.greyColor,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      FlatButton(
+                                        child: Text(
+                                          "Excluir",
+                                          style: TextStyle(
+                                            color: CONSTS.redColor,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          setState(() {
+                                            SubjectDatabase.db.deleteSubjectWithId(item.id);
+                                            //subjectList.removeSubject(item.id);
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: SubjectHomeWidget(
+                              subject: item,
                             ),
+                          );
+                        },
+                      );
+                    } else {
+                      return Center(
+                        child: Text(
+                          "Não tem nenhuma matéria cadastrada!",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color(0xffF8F8F2),
+                            fontSize: 16,
                           ),
-                        )
-                      : ListView.separated(
-                          itemCount: subjects.length,
-                          itemBuilder: (context, index) {
-                            //() =>
-                            return GestureDetector(
-                              onLongPress: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      backgroundColor: CONSTS.foregroundColor,
-                                      title: Text(
-                                        "Excluir matéria",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: CONSTS.whiteColor,
-                                        ),
-                                      ),
-                                      content: Text(
-                                        "Você deseja excluir a matéria \"${subjects[index].name}\"? Tenha em mente que perderá todas as notas descritas.",
-                                        style: TextStyle(
-                                          color: CONSTS.whiteColor,
-                                        ),
-                                      ),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          child: Text(
-                                            "Cancelar",
-                                            style: TextStyle(
-                                              color: CONSTS.greyColor,
-                                            ),
-                                          ),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            subjectList.removeSubject(index);
-                                          },
-                                        ),
-                                        FlatButton(
-                                          child: Text(
-                                            "Excluir",
-                                            style: TextStyle(
-                                              color: CONSTS.redColor,
-                                            ),
-                                          ),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            subjectList.removeSubject(index);
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                              child: SubjectHomeWidget(
-                                subject: subjects[index],
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return SizedBox(height: 15);
-                          },
                         ),
-                );
-              })
+                      );
+                    }
+                  },
+                ),
+              ),
             ],
           ),
         ),
@@ -198,7 +207,17 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         ),
                       ),
                       onPressed: () {
-                        subjectList.addSubject(_controller.text);
+                        setState(() {
+                          SubjectDatabase.db.addSubjectToDatabase(
+                          SubjectStore(
+                            name: _controller.text,
+                            passed: false,
+                            trimester1: 0.0,
+                            trimester2: 0.0,
+                            trimester3: 0.0,
+                          ),
+                        );
+                        });
                         _controller.text = "";
                         Navigator.pop(context, _controller.text);
                       },
