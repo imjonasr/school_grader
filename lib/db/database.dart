@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:my_grades/CONSTS.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sql.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -27,13 +28,13 @@ class SubjectDatabase {
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute(
-          "CREATE TABLE Subjects (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, passed INTEGER NOT NULL DEFAULT '0', trimester1 REAL, trimester2 REAL, trimester3 REAL, total REAL, remainToPass REAL)");
+          "CREATE TABLE ${CONSTS.databaseSubjectsTable} (${CONSTS.databaseIdColumn} INTEGER PRIMARY KEY AUTOINCREMENT, ${CONSTS.databaseNameColumn} TEXT, ${CONSTS.databasePassedColumn} INTEGER NOT NULL DEFAULT '0', ${CONSTS.databaseTrimester1Column} REAL, ${CONSTS.databaseTrimester2Column} REAL, ${CONSTS.databaseTrimester3Column} REAL, ${CONSTS.databaseTotalColumn} REAL, ${CONSTS.databaseRemainToPassColumn} REAL)");
     });
   }
 
   Future<List<SubjectStore>> getAllSubjects() async {
     final db = await database;
-    List response = await db.rawQuery('SELECT * FROM Subjects');
+    List response = await db.rawQuery('SELECT * FROM ${CONSTS.databaseSubjectsTable}');
     List list =
         response.map((s) => SubjectStore.fromMap(s)).toList();
     return list;
@@ -42,7 +43,7 @@ class SubjectDatabase {
   addSubjectToDatabase(SubjectStore subject) async {
     final db = await database;
     var raw = await db.insert(
-      "Subjects",
+      CONSTS.databaseSubjectsTable,
       subject.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
@@ -51,14 +52,14 @@ class SubjectDatabase {
 
   deleteSubjectWithId(int id) async {
     final db = await database;
-    var result = db.delete("Subjects", where: "id = ?", whereArgs: [id]);
+    var result = db.delete(CONSTS.databaseSubjectsTable, where: "${CONSTS.databaseIdColumn} = ?", whereArgs: [id]);
     return result;
   }
 
   updateSubject(SubjectStore subject) async {
     final db = await database;
     return db.update(
-      "Subjects",
+      CONSTS.databaseSubjectsTable,
       subject.toMap(),
       where: "id = ?",
       whereArgs: [subject.id],

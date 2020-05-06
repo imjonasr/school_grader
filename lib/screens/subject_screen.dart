@@ -4,7 +4,7 @@ import 'package:my_grades/CONSTS.dart';
 import 'package:my_grades/stores/subject_list_store.dart';
 import 'package:my_grades/stores/subject_store.dart';
 import 'package:my_grades/widgets/subject_home_widget.dart';
-import '../db/database.dart';
+import 'package:my_grades/db/database.dart';
 
 class SubjectScreen extends StatefulWidget {
   @override
@@ -44,7 +44,6 @@ class _SubjectScreenState extends State<SubjectScreen> {
                       style: TextStyle(
                         color: Color(0xffF8F8F2),
                         fontSize: 16,
-                        fontFamily: 'Poppins',
                       ),
                       children: <TextSpan>[
                         TextSpan(
@@ -128,7 +127,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
                                         onPressed: () {
                                           Navigator.of(context).pop();
                                           setState(() {
-                                            SubjectDatabase.db.deleteSubjectWithId(item.id);
+                                            SubjectDatabase.db
+                                                .deleteSubjectWithId(item.id);
                                             //subjectList.removeSubject(item.id);
                                           });
                                         },
@@ -207,17 +207,19 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         ),
                       ),
                       onPressed: () {
-                        setState(() {
-                          SubjectDatabase.db.addSubjectToDatabase(
-                          SubjectStore(
-                            name: _controller.text,
-                            passed: false,
-                            trimester1: 0.0,
-                            trimester2: 0.0,
-                            trimester3: 0.0,
-                          ),
+                        setState(
+                          () {
+                            SubjectDatabase.db.addSubjectToDatabase(
+                              SubjectStore(
+                                name: _controller.text,
+                                passed: false,
+                                trimester1: 0.0,
+                                trimester2: 0.0,
+                                trimester3: 0.0,
+                              ),
+                            );
+                          },
                         );
-                        });
                         _controller.text = "";
                         Navigator.pop(context, _controller.text);
                       },

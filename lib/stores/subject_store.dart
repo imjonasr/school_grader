@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
-import '../db/database.dart';
+import 'package:my_grades/db/database.dart';
+
 part 'subject_store.g.dart';
 
 class SubjectStore = _SubjectStore with _$SubjectStore;
