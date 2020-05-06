@@ -16,46 +16,52 @@ class GradeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: isTotalWidget ? null : () => showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: CONSTS.foregroundColor,
-            title: Text(
-              "Adicionar nota",
-              style: TextStyle(color: CONSTS.whiteColor),
-            ),
-            content: TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Nota',
-                hintStyle: TextStyle(
-                  color: CONSTS.whiteColor,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 14,
-                ),
-              ),
-              style: TextStyle(color: CONSTS.whiteColor),
-              keyboardType: TextInputType.number,
-              autofocus: true,
-              cursorColor: CONSTS.purpleColor,
-              controller: _gradeTextController,
-            ),
-            actions: <Widget>[
-              FlatButton(
-                  child: Text(
-                    "Adicionar",
-                    style: TextStyle(
-                      color: CONSTS.purpleColor,
+      onTap: isTotalWidget
+          ? null
+          : () => showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    backgroundColor: CONSTS.foregroundColor,
+                    title: Text(
+                      "Adicionar nota",
+                      style: TextStyle(color: CONSTS.whiteColor),
                     ),
-                  ),
-                  onPressed: () {
-                    subject.addGrade(trimester, _gradeTextController.text);
-                    Navigator.pop(context);
-                  }),
-            ],
-          );
-        },
-      ),
+                    content: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Nota',
+                        hintStyle: TextStyle(
+                          color: CONSTS.whiteColor,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 14,
+                        ),
+                      ),
+                      style: TextStyle(color: CONSTS.whiteColor),
+                      keyboardType: TextInputType.number,
+                      autofocus: true,
+                      cursorColor: CONSTS.purpleColor,
+                      controller: _gradeTextController,
+                    ),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text(
+                          "Adicionar",
+                          style: TextStyle(
+                            color: CONSTS.purpleColor,
+                          ),
+                        ),
+                        onPressed: () {
+                          subject.addGrade(
+                            trimester,
+                            _gradeTextController.text,
+                          );
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  );
+                },
+              ),
       child: Container(
         margin: EdgeInsets.only(bottom: 15),
         height: 60,

@@ -26,42 +26,42 @@ mixin _$SubjectList on _SubjectListBase, Store {
     }, _$subjectsPassedAtom, name: '${_$subjectsPassedAtom.name}_set');
   }
 
-  final _$_SubjectListBaseActionController =
-      ActionController(name: '_SubjectListBase');
+  final _$subjectsLengthAtom = Atom(name: '_SubjectListBase.subjectsLength');
 
   @override
-  void addSubject(String name) {
-    final _$actionInfo = _$_SubjectListBaseActionController.startAction();
-    try {
-      return super.addSubject(name);
-    } finally {
-      _$_SubjectListBaseActionController.endAction(_$actionInfo);
-    }
+  int get subjectsLength {
+    _$subjectsLengthAtom.context.enforceReadPolicy(_$subjectsLengthAtom);
+    _$subjectsLengthAtom.reportObserved();
+    return super.subjectsLength;
   }
 
   @override
-  void removeSubject(int index) {
-    final _$actionInfo = _$_SubjectListBaseActionController.startAction();
-    try {
-      return super.removeSubject(index);
-    } finally {
-      _$_SubjectListBaseActionController.endAction(_$actionInfo);
-    }
+  set subjectsLength(int value) {
+    _$subjectsLengthAtom.context.conditionallyRunInAction(() {
+      super.subjectsLength = value;
+      _$subjectsLengthAtom.reportChanged();
+    }, _$subjectsLengthAtom, name: '${_$subjectsLengthAtom.name}_set');
   }
 
+  final _$checkSubjectsPassedAsyncAction = AsyncAction('checkSubjectsPassed');
+
   @override
-  void checkSubjectsPassed() {
-    final _$actionInfo = _$_SubjectListBaseActionController.startAction();
-    try {
-      return super.checkSubjectsPassed();
-    } finally {
-      _$_SubjectListBaseActionController.endAction(_$actionInfo);
-    }
+  Future<int> checkSubjectsPassed() {
+    return _$checkSubjectsPassedAsyncAction
+        .run(() => super.checkSubjectsPassed());
+  }
+
+  final _$getSubjectsLengthAsyncAction = AsyncAction('getSubjectsLength');
+
+  @override
+  Future<int> getSubjectsLength() {
+    return _$getSubjectsLengthAsyncAction.run(() => super.getSubjectsLength());
   }
 
   @override
   String toString() {
-    final string = 'subjectsPassed: ${subjectsPassed.toString()}';
+    final string =
+        'subjectsPassed: ${subjectsPassed.toString()},subjectsLength: ${subjectsLength.toString()}';
     return '{$string}';
   }
 }

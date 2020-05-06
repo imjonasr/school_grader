@@ -18,8 +18,8 @@ class _SubjectScreenState extends State<SubjectScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var subjects = subjectList.subjects;
     subjectList.checkSubjectsPassed();
+    subjectList.getSubjectsLength();
 
     return Scaffold(
       backgroundColor: Color(0xff282A36),
@@ -55,7 +55,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                         ),
                         TextSpan(text: " de "),
                         TextSpan(
-                          text: subjects.length.toString(),
+                          text: subjectList.subjectsLength.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -77,7 +77,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                 child: FutureBuilder(
                   future: SubjectDatabase.db.getAllSubjects(),
                   builder: (context, snapshot) {
-                    if (snapshot.hasData) {
+                    if (snapshot.hasData && snapshot.data.length > 0) {
                       return ListView.separated(
                         itemCount: snapshot.data.length,
                         physics: BouncingScrollPhysics(),

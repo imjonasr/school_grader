@@ -4,7 +4,7 @@ import 'package:sqflite/sql.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import '../stores/subject_store.dart';
+import 'package:my_grades/stores/subject_store.dart';
 
 class SubjectDatabase {
   SubjectDatabase._();
@@ -60,16 +60,8 @@ class SubjectDatabase {
     return db.update(
       "Subjects",
       subject.toMap(),
-      where:
-          "trimester1 = ?, trimester2 = ?, trimester3 = ?, remainToPass = ?, total = ?, passed = ?",
-      whereArgs: [
-        subject.trimester1,
-        subject.trimester2,
-        subject.trimester3,
-        subject.remainToPass,
-        subject.total,
-        subject.passed
-      ],
+      where: "id = ?",
+      whereArgs: [subject.id],
     );
   }
 }

@@ -9,36 +9,30 @@ class SubjectList = _SubjectListBase with _$SubjectList;
 abstract class _SubjectListBase with Store {
   ObservableList<SubjectStore> subjects = ObservableList<SubjectStore>();
 
-  @action
-  void addSubject(String name) {
-    subjects.add(
-      SubjectStore(
-        name: name,
-        passed: false,
-        //grades: GradeStore(trimester1: 0.0, trimester2: 0.0, trimester3: 0.0),
-        trimester1: 0.0,
-        trimester2: 0.0,
-        trimester3: 0.0,
-      ),
-    );
-    checkSubjectsPassed();
-  }
-
-  void removeSubject(int index) {
-    SubjectDatabase db;
-    db.deleteSubjectWithId(index);
-  }
-
   @observable
   int subjectsPassed = 0;
 
+  @observable
+  int subjectsLength = 0;
+
   @action
-  void checkSubjectsPassed() {
+  Future<int> checkSubjectsPassed() async {
     subjectsPassed = 0;
+    List subjects = await SubjectDatabase.db.getAllSubjects();
     for (int s = 0; s < subjects.length; s++) {
       if (subjects[s].passed) {
         subjectsPassed++;
       }
     }
+
+    return subjectsPassed;
+  }
+
+  @action
+  Future<int> getSubjectsLength() async {
+    List subjects = await SubjectDatabase.db.getAllSubjects();
+    subjectsLength = subjects.length;
+    print(subjectsLength);
+    return subjectsLength;
   }
 }
