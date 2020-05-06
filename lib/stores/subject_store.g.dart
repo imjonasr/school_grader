@@ -26,21 +26,89 @@ mixin _$SubjectStore on _SubjectStore, Store {
     }, _$passedAtom, name: '${_$passedAtom.name}_set');
   }
 
-  final _$gradesAtom = Atom(name: '_SubjectStore.grades');
+  final _$trimester1Atom = Atom(name: '_SubjectStore.trimester1');
 
   @override
-  GradeStore get grades {
-    _$gradesAtom.context.enforceReadPolicy(_$gradesAtom);
-    _$gradesAtom.reportObserved();
-    return super.grades;
+  double get trimester1 {
+    _$trimester1Atom.context.enforceReadPolicy(_$trimester1Atom);
+    _$trimester1Atom.reportObserved();
+    return super.trimester1;
   }
 
   @override
-  set grades(GradeStore value) {
-    _$gradesAtom.context.conditionallyRunInAction(() {
-      super.grades = value;
-      _$gradesAtom.reportChanged();
-    }, _$gradesAtom, name: '${_$gradesAtom.name}_set');
+  set trimester1(double value) {
+    _$trimester1Atom.context.conditionallyRunInAction(() {
+      super.trimester1 = value;
+      _$trimester1Atom.reportChanged();
+    }, _$trimester1Atom, name: '${_$trimester1Atom.name}_set');
+  }
+
+  final _$trimester2Atom = Atom(name: '_SubjectStore.trimester2');
+
+  @override
+  double get trimester2 {
+    _$trimester2Atom.context.enforceReadPolicy(_$trimester2Atom);
+    _$trimester2Atom.reportObserved();
+    return super.trimester2;
+  }
+
+  @override
+  set trimester2(double value) {
+    _$trimester2Atom.context.conditionallyRunInAction(() {
+      super.trimester2 = value;
+      _$trimester2Atom.reportChanged();
+    }, _$trimester2Atom, name: '${_$trimester2Atom.name}_set');
+  }
+
+  final _$trimester3Atom = Atom(name: '_SubjectStore.trimester3');
+
+  @override
+  double get trimester3 {
+    _$trimester3Atom.context.enforceReadPolicy(_$trimester3Atom);
+    _$trimester3Atom.reportObserved();
+    return super.trimester3;
+  }
+
+  @override
+  set trimester3(double value) {
+    _$trimester3Atom.context.conditionallyRunInAction(() {
+      super.trimester3 = value;
+      _$trimester3Atom.reportChanged();
+    }, _$trimester3Atom, name: '${_$trimester3Atom.name}_set');
+  }
+
+  final _$totalAtom = Atom(name: '_SubjectStore.total');
+
+  @override
+  double get total {
+    _$totalAtom.context.enforceReadPolicy(_$totalAtom);
+    _$totalAtom.reportObserved();
+    return super.total;
+  }
+
+  @override
+  set total(double value) {
+    _$totalAtom.context.conditionallyRunInAction(() {
+      super.total = value;
+      _$totalAtom.reportChanged();
+    }, _$totalAtom, name: '${_$totalAtom.name}_set');
+  }
+
+  final _$remainToPassAtom = Atom(name: '_SubjectStore.remainToPass');
+
+  @override
+  double get remainToPass {
+    _$remainToPassAtom.context.enforceReadPolicy(_$remainToPassAtom);
+    _$remainToPassAtom.reportObserved();
+    return super.remainToPass;
+  }
+
+  @override
+  set remainToPass(double value) {
+    _$remainToPassAtom.context.conditionallyRunInAction(() {
+      super.remainToPass = value;
+      _$remainToPassAtom.reportChanged();
+    }, _$remainToPassAtom, name: '${_$remainToPassAtom.name}_set');
   }
 
   final _$_SubjectStoreActionController =
@@ -68,7 +136,8 @@ mixin _$SubjectStore on _SubjectStore, Store {
 
   @override
   String toString() {
-    final string = 'passed: ${passed.toString()},grades: ${grades.toString()}';
+    final string =
+        'passed: ${passed.toString()},trimester1: ${trimester1.toString()},trimester2: ${trimester2.toString()},trimester3: ${trimester3.toString()},total: ${total.toString()},remainToPass: ${remainToPass.toString()}';
     return '{$string}';
   }
 }

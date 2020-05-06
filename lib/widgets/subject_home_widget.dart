@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:my_grades/CONSTS.dart';
 import 'package:my_grades/screens/grade_screen.dart';
 import 'package:my_grades/stores/subject_store.dart';
-import 'package:my_grades/stores/grade_store.dart';
 
 class SubjectHomeWidget extends StatelessWidget {
   
@@ -12,8 +11,6 @@ class SubjectHomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    GradeStore _grades = subject.grades;
 
     return GestureDetector(
       onTap: () => Navigator.push(
@@ -65,7 +62,7 @@ class SubjectHomeWidget extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  "${_grades.total.toStringAsFixed(2)}",
+                  "${subject.total.toStringAsFixed(2)}",
                   style: TextStyle(
                     color: CONSTS.whiteColor,
                     fontSize: 18,
@@ -82,10 +79,9 @@ class SubjectHomeWidget extends StatelessWidget {
   }
 
   String gradesText() {
-    GradeStore _grades = subject.grades;
-    String stringTrimestrer1 = _grades.trimester1 == 0.0 ? "--" : _grades.trimester1.toString();
-    String stringTrimestrer2 = _grades.trimester1 == 0.0 ? "--" : _grades.trimester2.toString();
-    String stringTrimestrer3 = _grades.trimester1 == 0.0 ? "--" : _grades.trimester3.toString();
+    String stringTrimestrer1 = subject.trimester1 == 0.0 ? "--" : subject.trimester1.toString();
+    String stringTrimestrer2 = subject.trimester1 == 0.0 ? "--" : subject.trimester2.toString();
+    String stringTrimestrer3 = subject.trimester1 == 0.0 ? "--" : subject.trimester3.toString();
 
     return "$stringTrimestrer1 / $stringTrimestrer2 / $stringTrimestrer3";
   }
